@@ -33,7 +33,22 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        <li>
 
+                            @guest
+                            @else
+                                <form class='navbar-form navbar-left' role='search'>
+                                    <div class='input-group'>
+                                        <input type='text' class='form-control' placeholder="{{__('Search...')}}" name='search' />
+                                        <span class="input-group-btn">
+                                            <button type="submit" class='btn btn-primary'>
+                                                <span class='fa fa-search'></span> search
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                            @endguest
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -49,6 +64,9 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="">{{ __('Upload video') }}</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
