@@ -20,3 +20,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/videos/create', array(
+    'as' => 'videos.create',
+    'middleware' => 'auth',
+    'uses' => 'VideosController@create',
+));
