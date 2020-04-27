@@ -26,3 +26,9 @@ Route::get('/videos/create', array(
     'middleware' => 'auth',
     'uses' => 'VideosController@create',
 ));
+
+Route::post('/videos/store', array(
+    'as' => 'videos.store',
+    'middleware' => 'auth',
+    'uses' => 'VideosController@store',
+));
