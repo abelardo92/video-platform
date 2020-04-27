@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label for="description">{{__('Description')}}</label>
-                <textarea class="form-control" id="description" name="description" value="{{old('description')}}"></textarea>
+                <textarea class="form-control" id="description" name="description">{{old('description')}}</textarea>
             </div>
             <div class="form-group">
                 <label for="image">{{__('Image')}}</label>

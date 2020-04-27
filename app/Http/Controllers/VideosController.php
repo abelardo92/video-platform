@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 use App\Video;
 use App\Comment;
+use Illuminate\Support\Facades\Storage;
 
 class VideosController extends Controller
 {
@@ -20,5 +23,31 @@ class VideosController extends Controller
             'description' => 'required',
             'video' => 'mimes:mp4'
         ]);
+
+        $video = new Video();
+        $user = Auth::user();
+        $video->user_id = $user->id;
+        $video->title = $request->input('title');
+        $video->description = $request->input('description');
+        $video->status = "";
+
+        $image = $request->file('image');
+        if($image) {
+            $image_path = time().$image->getClientOriginalName();
+            Storage::disk('images')->put($image_path, File::get($image));
+            $video->image = $image_path;
+        }
+
+        $video_file = $request->file('video');
+        if($video_file) {
+            $video_path = time().$video_file->getClientOriginalName();
+            Storage::disk('videos')->put($video_path, File::get($video_file));
+            $video->video_path = $video_path;
+        }
+
+        $video->save();
+
+        $message = "Video has been uploaded succesfully";
+        return redirect()->route('home')->with('message');
     }
 }
