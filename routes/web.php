@@ -42,3 +42,13 @@ Route::get('/image/{filename}', array(
     'as' => 'imageVideo',
     'uses' => 'VideosController@getImage',
 ));
+
+Route::get('/video/{filename}', array(
+    'as' => 'videos.video',
+    'uses' => 'VideosController@getVideo',
+));
+
+Route::get('/videos/{video_id}', array(
+    'as' => 'videos.view',
+    'uses' => 'VideosController@view'
+));

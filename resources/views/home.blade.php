@@ -21,7 +21,7 @@
                         <div class="data col-md-8">
                             <h3 class="video-title"><a href="">{{$video->title}}</a></h3>
                             <p>{{$video->user->name}} {{$video->user->surname}}</p>
-                            <a href="" class="btn btn-success">Watch</a>
+                        <a href="{{route('videos.view', $video->id)}}" class="btn btn-success">Watch</a>
                             @if(Auth::check() && Auth::user()->id == $video->user->id)
                                 <a href="" class="btn btn-warning">Edit</a>
                                 <a href="" class="btn btn-danger">Delete</a>
