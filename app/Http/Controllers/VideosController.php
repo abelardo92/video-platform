@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Symfony\Component\HttpFoundation\Response;
 
 use App\Video;
 use App\Comment;
@@ -49,5 +49,10 @@ class VideosController extends Controller
 
         $message = "Video has been uploaded succesfully";
         return redirect()->route('home')->with('message');
+    }
+
+    public function getImage($filename) {
+        $file = Storage::disk('images')->get($filename);
+        return new Response($file, 200);
     }
 }

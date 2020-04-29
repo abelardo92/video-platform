@@ -37,3 +37,8 @@ Route::post('/videos/store', array(
     'middleware' => 'auth',
     'uses' => 'VideosController@store',
 ));
+
+Route::get('/image/{filename}', array(
+    'as' => 'imageVideo',
+    'uses' => 'VideosController@getImage',
+));
