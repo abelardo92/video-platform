@@ -3,21 +3,37 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+        <div class="container">
+            @if(session('message'))
+                <div class='alert alert-success'></div>
+            @endif
+            <div id="videos-list">
+            @foreach ($videos as $video)
+                <div class="video-item col-md-10 pull-left panel panel-default">
+                    <div class="panel-body row">
+                        @if(Storage::disk('images')->has($video->image))
+                            <div class="video-image-thumb col-md-3 pull-left">
+                                <div class="video-image-mask">
+                                    <img src="{{route('imageVideo',$video->image)}}">
+                                </div>
+                            </div>
+                        @endif
+                        <div class="data col-md-8">
+                            <h3 class="video-title"><a href="">{{$video->title}}</a></h3>
+                            <p>{{$video->user->name}} {{$video->user->surname}}</p>
+                        <a href="{{route('videos.view', $video->id)}}" class="btn btn-success">Watch</a>
+                            @if(Auth::check() && Auth::user()->id == $video->user->id)
+                                <a href="" class="btn btn-warning">Edit</a>
+                                <a href="" class="btn btn-danger">Delete</a>
+                            @endif
                         </div>
-                    @endif
 
-                    You are logged in!
+                    </div>
                 </div>
+            @endforeach
             </div>
         </div>
+        {{$videos->links()}}
     </div>
 </div>
 @endsection
