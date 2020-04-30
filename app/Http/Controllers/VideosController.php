@@ -54,7 +54,42 @@ class VideosController extends Controller
     public function edit($id) {
 
         $video = Video::findOrFail($id);
+        $user = Auth::user();
         return view('videos.edit', compact('video'));
+    }
+
+    public function update($video_id, Request $request) {
+        $validatedData = $this->validate($request, [
+            'title' => 'required|min:5',
+            'description' => 'required',
+            'video' => 'mimes:mp4'
+        ]);
+
+        $video = Video::findOrFail($video_id);
+        $video->title = $request->input('title');
+        $video->description = $request->input('description');
+
+        $image = $request->file('image');
+        if($image) {
+            $image_path = time().$image->getClientOriginalName();
+            Storage::disk('images')->put($image_path, File::get($image));
+            Storage::disk('images')->delete($video->image);
+            $video->image = $image_path;
+        }
+
+        $video_file = $request->file('video');
+        if($video_file) {
+            $video_path = time().$video_file->getClientOriginalName();
+            Storage::disk('videos')->put($video_path, File::get($video_file));
+            Storage::disk('videos')->delete($video->video_path);
+            $video->video_path = $video_path;
+        }
+
+        $video->update();
+        return redirect()->route('home')->with(array(
+            'message' => 'El video se ha actualizado',
+        ));
+
     }
 
     public function getImage($filename) {

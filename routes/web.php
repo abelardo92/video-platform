@@ -44,7 +44,7 @@ Route::get('/videos/edit/{video_id}', array(
     'uses' => 'VideosController@edit',
 ));
 
-Route::post('/videos/update', array(
+Route::post('/videos/update/{video_id}', array(
     'as' => 'videos.update',
     'middleware' => 'auth',
     'uses' => 'VideosController@update',

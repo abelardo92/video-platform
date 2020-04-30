@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <form action="{{route('videos.store')}}" method="POST" enctype="multipart/form-data" class="col-lg-7">
+        <form action="{{route('videos.update', $video->id)}}" method="POST" enctype="multipart/form-data" class="col-lg-7">
             {{ csrf_field() }}
     
             @if($errors->any())
