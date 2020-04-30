@@ -26,4 +26,16 @@ class CommentsController extends Controller
         ));
 
     }
+
+    public function delete($comment_id) {
+        $user = Auth::user();
+        $comment = Comment::find($comment_id);
+
+        if($user && ($comment->user_id == $user->id || $comment->video->user_id == $user->id)) {
+            $comment->delete();
+        }
+        return redirect()->route('videos.view', $comment->video_id)->with(array(
+            'message' => 'Comment deleted succesfully'
+        ));
+    } 
 }

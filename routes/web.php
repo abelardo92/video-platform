@@ -53,6 +53,11 @@ Route::get('/videos/{video_id}', array(
     'uses' => 'VideosController@view'
 ));
 
+Route::get('/comments/delete/{comment_id}', array(
+    'as' => 'comments.delete',
+    'uses' => 'CommentsController@delete'
+));
+
 Route::post('/comments/store', array(
     'as' => 'comments.store',
     'middleware' => 'auth',
