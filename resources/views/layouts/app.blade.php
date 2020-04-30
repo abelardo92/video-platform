@@ -33,6 +33,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
+                        </li>
                         <li>
 
                             @guest
@@ -65,7 +68,7 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="">{{ __('Upload video') }}</a>
+                            <a class="nav-link" href="{{route('videos.create')}}">{{ __('Upload video') }}</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -92,6 +95,10 @@
 
         <main class="py-4">
             @yield('content')
+            <footer class="col-md-10 offset-md-1">
+                <hr/>
+                <p>Video platform 2020</p>
+            </footer>
         </main>
     </div>
 </body>
