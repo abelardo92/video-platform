@@ -92,6 +92,10 @@
 
         <main class="py-4">
             @yield('content')
+            <footer class="col-md-10 offset-md-1">
+                <hr/>
+                <p>Video platform 2020</p>
+            </footer>
         </main>
     </div>
 </body>

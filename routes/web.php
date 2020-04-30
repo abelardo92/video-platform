@@ -52,3 +52,9 @@ Route::get('/videos/{video_id}', array(
     'as' => 'videos.view',
     'uses' => 'VideosController@view'
 ));
+
+Route::post('/comments/store', array(
+    'as' => 'comments.store',
+    'middleware' => 'auth',
+    'uses' => 'CommentsController@store',
+));

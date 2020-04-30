@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="container">
             @if(session('message'))
-                <div class='alert alert-success'></div>
+                <div class='alert alert-success'>{{session('message')}}</div>
             @endif
             <div id="videos-list">
             @foreach ($videos as $video)
