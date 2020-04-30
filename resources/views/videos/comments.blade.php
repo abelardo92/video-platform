@@ -34,7 +34,7 @@ Comments
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title">¿Estás seguro?</h4>
+                                                <h4 class="modal-title">Are you sure?</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                             </div>
                                             <div class="modal-body">

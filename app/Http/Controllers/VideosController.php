@@ -65,4 +65,29 @@ class VideosController extends Controller
         $video = Video::find($video_id);
         return view('videos.view', compact('video'));
     }
+
+    public function delete($video_id) {
+        $user = Auth::user();
+        $video = Video::find($video_id);
+        $comments = Comment::where('video_id', $video_id)->get();
+
+        if($user && $video->user_id == $user->id) {
+            // delete related comments
+            if($comments && count($comments) >= 1) {
+                foreach($comments as $comment) {
+                    $comment->delete();
+                }
+            }
+
+            // delete files
+            Storage::disk('images')->delete($video->image);
+            Storage::disk('videos')->delete($video->video_path);
+
+            $video->delete();
+            $message = array('message' => 'Video deleted succesfully');
+        } else {
+            $message = array('message' => 'Problem deleting video');
+        }
+        return redirect()->route('home')->with($message);
+    }
 }
