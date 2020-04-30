@@ -38,6 +38,18 @@ Route::post('/videos/store', array(
     'uses' => 'VideosController@store',
 ));
 
+Route::get('/videos/edit/{video_id}', array(
+    'as' => 'videos.edit',
+    'middleware' => 'auth',
+    'uses' => 'VideosController@edit',
+));
+
+Route::post('/videos/update', array(
+    'as' => 'videos.update',
+    'middleware' => 'auth',
+    'uses' => 'VideosController@update',
+));
+
 Route::get('/image/{filename}', array(
     'as' => 'imageVideo',
     'uses' => 'VideosController@getImage',

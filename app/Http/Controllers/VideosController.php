@@ -51,6 +51,12 @@ class VideosController extends Controller
         return redirect()->route('home')->with('message');
     }
 
+    public function edit($id) {
+
+        $video = Video::findOrFail($id);
+        return view('videos.edit', compact('video'));
+    }
+
     public function getImage($filename) {
         $file = Storage::disk('images')->get($filename);
         return new Response($file, 200);
@@ -62,8 +68,13 @@ class VideosController extends Controller
     }
 
     public function view($video_id) {
+        $user = Auth::user();
         $video = Video::find($video_id);
-        return view('videos.view', compact('video'));
+        if($user && $video->user_id == $user->id) {
+            return view('videos.view', compact('video'));
+        } else {
+            return redirect()->route('home');
+        }
     }
 
     public function delete($video_id) {
