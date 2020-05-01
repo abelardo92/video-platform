@@ -9,14 +9,7 @@
             @endif
             <div class="row">
                 <div class="col-md-4 offset-md-6">
-                    <form class="col-md-8 pull-right" action="{{route('videos.search',$search ?? '')}}" method="GET">
-                        <label for="filter">Filter</label>
-                        <select name="filter" class="form-control">
-                            <option value="new">Newest first</option>
-                            <option value="old">Oldest first</option>
-                            <option value="alpha">From A to Z</option>
-                        </select>
-                    </form>
+                    @include('videos.filter_button', ['action' => 'home'])
                 </div>
             </div>
             @include('videos.videos_list')

@@ -112,7 +112,7 @@ class VideosController extends Controller
         }
     }
 
-    public function search($search = null, Request $request) {
+    public function search($search = null, $filter = null, Request $request) {
 
         if(is_null($search)) {
             $search = $request->get('search');
@@ -122,8 +122,41 @@ class VideosController extends Controller
             }
             return redirect()->route('videos.search', compact('search'));
         }
-        $videos = Video::where('title','LIKE',"%$search%")->paginate(5);
-        return view('videos.search', compact('videos', 'search'));
+
+        if(is_null($filter) && $request->get('filter')) {
+            $filter = $request->get('filter');
+            return redirect()->route('videos.search', compact('search','filter'));
+        }
+
+        $videos = Video::where('title','LIKE',"%$search%");
+
+        if(!is_null($filter)) {
+            switch($filter) {
+                case "new":
+                    $column = 'id';
+                    $order = 'desc';
+                break;
+                case "old":
+                    $column = 'id';
+                    $order = 'asc';
+                break;
+                case "alpha":
+                    $column = 'title';
+                    $order = 'desc';
+                break;
+                default:
+                    $column = 'id';
+                    $order = 'desc';
+                break;
+            }
+        } else {
+            $column = 'id';
+            $order = 'desc';
+        }
+        // dd($filter);
+        $videos = $videos->orderBy($column, $order)->paginate(5);
+
+        return view('videos.search', compact('videos', 'search','filter'));
 
     }
 

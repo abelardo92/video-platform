@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/home', array(
+Route::get('/home/{filter?}', array(
     'as' => 'home',
     'uses' => 'HomeController@index',
 ));
@@ -49,7 +50,7 @@ Route::get('/videos/edit/{video_id}', array(
     'uses' => 'VideosController@edit',
 ));
 
-Route::get('/videos/search/{search?}', array(
+Route::get('/videos/search/{search?}/{filter?}', array(
     'as' => 'videos.search',
     'middleware' => 'auth',
     'uses' => 'VideosController@search',
@@ -85,3 +86,9 @@ Route::post('/comments/store', array(
     'middleware' => 'auth',
     'uses' => 'CommentsController@store',
 ));
+
+// clear cache
+Route::get('/clear-cache', function(){
+    $code = Artisan::call('cache:clear');
+    echo "Cache cleared";
+});

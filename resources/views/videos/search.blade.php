@@ -12,14 +12,7 @@
                     <h2>Busqueda: {{$search ?? ''}}</h2>
                 </div>
                 <div class="col-md-4">
-                    <form class="col-md-8 pull-right" action="{{route('videos.search',$search ?? '')}}" method="GET">
-                        <label for="filter">Filter</label>
-                        <select name="filter" class="form-control">
-                            <option value="new">Newest first</option>
-                            <option value="old">Oldest first</option>
-                            <option value="alpha">From A to Z</option>
-                        </select>
-                    </form>
+                    @include('videos.filter_button', ['action' => 'videos.search'])
                 </div>
             </div>
             {{-- <div class="clearfix"></div> --}}
