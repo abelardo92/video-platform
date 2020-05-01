@@ -7,7 +7,22 @@
             @if(session('message'))
                 <div class='alert alert-success'>{{session('message')}}</div>
             @endif
-            <h2>Busqueda: {{$search ?? ''}}</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Busqueda: {{$search ?? ''}}</h2>
+                </div>
+                <div class="col-md-4">
+                    <form class="col-md-8 pull-right" action="{{route('videos.search',$search ?? '')}}" method="GET">
+                        <label for="filter">Filter</label>
+                        <select name="filter" class="form-control">
+                            <option value="new">Newest first</option>
+                            <option value="old">Oldest first</option>
+                            <option value="alpha">From A to Z</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+            {{-- <div class="clearfix"></div> --}}
             @include('videos.videos_list')
         </div>
     </div>
