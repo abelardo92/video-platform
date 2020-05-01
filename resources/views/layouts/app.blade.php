@@ -40,7 +40,7 @@
 
                             @guest
                             @else
-                                <form class='navbar-form navbar-left' role='search'>
+                                <form class='navbar-form navbar-left' role='search' method="GET" action="{{route('videos.search')}}">
                                     <div class='input-group'>
                                         <input type='text' class='form-control' placeholder="{{__('Search...')}}" name='search' />
                                         <span class="input-group-btn">

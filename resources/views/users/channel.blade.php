@@ -8,10 +8,11 @@
                 <div class='alert alert-success'>{{session('message')}}</div>
             @endif
             <div class="row">
-                <div class="col-md-4 offset-md-6">
-                    @include('videos.filter_button', ['action' => 'home'])
+                <div class="col-md-12">
+                    <h2>{{$user->name}}'s channel</h2>
                 </div>
             </div>
+            {{-- <div class="clearfix"></div> --}}
             @include('videos.videos_list')
         </div>
     </div>

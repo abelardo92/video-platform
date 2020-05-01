@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,15 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/home', array(
+Route::get('/{filter?}', array(
     'as' => 'home',
     'uses' => 'HomeController@index',
 ));
@@ -44,10 +45,15 @@ Route::get('/videos/edit/{video_id}', array(
     'uses' => 'VideosController@edit',
 ));
 
-Route::post('/videos/update/{video_id}', array(
-    'as' => 'videos.update',
+Route::get('/videos/edit/{video_id}', array(
+    'as' => 'videos.edit',
+    'uses' => 'VideosController@edit',
+));
+
+Route::get('/videos/search/{search?}/{filter?}', array(
+    'as' => 'videos.search',
     'middleware' => 'auth',
-    'uses' => 'VideosController@update',
+    'uses' => 'VideosController@search',
 ));
 
 Route::get('/image/{filename}', array(
@@ -80,3 +86,15 @@ Route::post('/comments/store', array(
     'middleware' => 'auth',
     'uses' => 'CommentsController@store',
 ));
+
+Route::get('/channel/{user_id}', array(
+    'as' => 'users.channel',
+    'middleware' => 'auth',
+    'uses' => 'UsersController@channel',
+));
+
+// clear cache
+Route::get('/clear-cache', function(){
+    $code = Artisan::call('cache:clear');
+    echo "Cache cleared";
+});

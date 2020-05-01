@@ -112,6 +112,54 @@ class VideosController extends Controller
         }
     }
 
+    public function search($search = null, $filter = null, Request $request) {
+
+        if(is_null($search)) {
+            $search = $request->get('search');
+
+            if(is_null($search)) {
+                return redirect()->route('home');
+            }
+            return redirect()->route('videos.search', compact('search'));
+        }
+
+        if(is_null($filter) && $request->get('filter')) {
+            $filter = $request->get('filter');
+            return redirect()->route('videos.search', compact('search','filter'));
+        }
+
+        $videos = Video::where('title','LIKE',"%$search%");
+
+        if(!is_null($filter)) {
+            switch($filter) {
+                case "new":
+                    $column = 'id';
+                    $order = 'desc';
+                break;
+                case "old":
+                    $column = 'id';
+                    $order = 'asc';
+                break;
+                case "alpha":
+                    $column = 'title';
+                    $order = 'desc';
+                break;
+                default:
+                    $column = 'id';
+                    $order = 'desc';
+                break;
+            }
+        } else {
+            $column = 'id';
+            $order = 'desc';
+        }
+        // dd($filter);
+        $videos = $videos->orderBy($column, $order)->paginate(5);
+
+        return view('videos.search', compact('videos', 'search','filter'));
+
+    }
+
     public function delete($video_id) {
         $user = Auth::user();
         $video = Video::find($video_id);
