@@ -12,7 +12,7 @@
                     @endif
                     <div class="data col-md-8">
                         <h3 class="video-title"><a href="">{{$video->title}}</a></h3>
-                        <p>{{$video->user->name}} {{$video->user->surname}}</p>
+                    <p><a href="{{route('users.channel', $video->user_id)}}">{{$video->user->name}} {{$video->user->surname}}</a></p>
                     <a href="{{route('videos.view', $video->id)}}" class="btn btn-success">Watch</a>
 
                         @if(Auth::check() && Auth::user()->id == $video->user->id)

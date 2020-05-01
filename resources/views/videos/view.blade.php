@@ -12,7 +12,7 @@
 
     <div class="card">
         <div class="card-header">
-            Uploaded by <strong>{{$video->user->name}} {{$video->user->surname}}</strong> {{FormatTime::LongTimeFilter($video->created_at)}}
+        Uploaded by <strong><a href="{{route('users.channel', $video->user_id)}}">{{$video->user->name}} {{$video->user->surname}}</a></strong> {{FormatTime::LongTimeFilter($video->created_at)}}
         </div>
         <div class="card-body">
             {{$video->description}}
