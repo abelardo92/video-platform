@@ -87,6 +87,12 @@ Route::post('/comments/store', array(
     'uses' => 'CommentsController@store',
 ));
 
+Route::get('/channel/{user_id}', array(
+    'as' => 'users.channel',
+    'middleware' => 'auth',
+    'uses' => 'UsersController@channel',
+));
+
 // clear cache
 Route::get('/clear-cache', function(){
     $code = Artisan::call('cache:clear');
