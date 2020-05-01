@@ -112,16 +112,17 @@ class VideosController extends Controller
         }
     }
 
-    public function search(Request $request) {
+    public function search($search = null, Request $request) {
 
-        $search = $request->input('search');
+        if(is_null($search)) {
+            $search = $request->get('search');
 
-        if(!empty($search)) {
-            $videos = Video::where('title','LIKE',"%$search%")->paginate(5);
-        } else {
-            $videos = Video::orderBy('id','desc')->paginate(5);
+            if(is_null($search)) {
+                return redirect()->route('home');
+            }
+            return redirect()->route('videos.search', compact('search'));
         }
-        // dd($videos);
+        $videos = Video::where('title','LIKE',"%$search%")->paginate(5);
         return view('videos.search', compact('videos', 'search'));
 
     }

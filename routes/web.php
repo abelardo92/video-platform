@@ -49,7 +49,7 @@ Route::get('/videos/edit/{video_id}', array(
     'uses' => 'VideosController@edit',
 ));
 
-Route::post('/videos/search', array(
+Route::get('/videos/search/{search?}', array(
     'as' => 'videos.search',
     'middleware' => 'auth',
     'uses' => 'VideosController@search',
