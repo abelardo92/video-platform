@@ -44,10 +44,15 @@ Route::get('/videos/edit/{video_id}', array(
     'uses' => 'VideosController@edit',
 ));
 
-Route::post('/videos/update/{video_id}', array(
-    'as' => 'videos.update',
+Route::get('/videos/edit/{video_id}', array(
+    'as' => 'videos.edit',
+    'uses' => 'VideosController@edit',
+));
+
+Route::post('/videos/search', array(
+    'as' => 'videos.search',
     'middleware' => 'auth',
-    'uses' => 'VideosController@update',
+    'uses' => 'VideosController@search',
 ));
 
 Route::get('/image/{filename}', array(
