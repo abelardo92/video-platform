@@ -14,15 +14,15 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/home/{filter?}', array(
+Route::get('/{filter?}', array(
     'as' => 'home',
     'uses' => 'HomeController@index',
 ));
